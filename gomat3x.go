@@ -9,8 +9,9 @@ import (
 )
 
 var (
-	wg       sync.WaitGroup
-	alphanum = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	wg          sync.WaitGroup
+	alphanum    = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	minSnakeLen = 3
 )
 
 type position struct {
@@ -56,9 +57,9 @@ func addSnakes(snakes *[]snake) {
 
 	w, _ := termbox.Size()
 	for i := 0; i < w; i += 2 {
-		if rand.Intn(100) < 8 { // N percent chance of a new snake
+		if rand.Intn(100) < 8 { // N (8) percent chance of a new snake
 			if !forbiddenSpawnX[i] {
-				newSnake := snake{head: position{x: i, y: 0}, length: rand.Intn(10) + 3}
+				newSnake := snake{head: position{x: i, y: 0}, length: rand.Intn(10) + minSnakeLen}
 				*snakes = append(*snakes, newSnake)
 			}
 		}
@@ -92,7 +93,7 @@ func main() {
 		}
 	}()
 
-	snakes := []snake{snake{head: position{x: 0, y: 1}, length: 3}}
+	snakes := []snake{snake{head: position{x: 0, y: 1}, length: minSnakeLen}}
 
 loop:
 	for {
