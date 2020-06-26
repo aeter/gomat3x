@@ -45,8 +45,8 @@ func randomChar() rune {
 }
 
 func addSnakes(snakes *[]snake) {
-    // Find which snakes intersect the first, top of screen row. These
-    // positions are forbidden for spawning new snakes.
+	// Find which snakes intersect the first, top of screen row. These
+	// positions are forbidden for spawning new snakes.
 	forbiddenSpawnX := make(map[int]bool)
 	for _, snake := range *snakes {
 		if snake.head.y-snake.length <= 0 {
